@@ -47,6 +47,6 @@ public class GptController {
 
     @PostMapping("/assist")
     public ResponseEntity<String> assist(@RequestBody AssistantRequest assistantRequest) {
-        return query(new GptSimpleRequest(new AssistantRequestDto(assistantRequest).getPrompt(), "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"));
+        return query(new GptSimpleRequest(new AssistantRequestDto(assistantRequest).getPrompt(), "token"));
     }
 }
