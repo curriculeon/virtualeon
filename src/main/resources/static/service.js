@@ -8,12 +8,19 @@ class Person {
 
 function create(e) {
     e.preventDefault();
-    console.log("click")
-    const firstName = document.getElementById("fname").value;
-    const lastName = document.getElementById("lname").value;
-    const jsonPerson = new Person(0, firstName, lastName);
-    const personData = JSON.stringify(jsonPerson);
-    console.log(personData)
+    const projectName = document.getElementById("projectName").value;
+    const input = document.getElementById("input").value;
+    const output = document.getElementById("output").value;
+    const expected = document.getElementById("expected").value;
+
+    const jsonPerson = {
+        "projectName": projectName,
+        "input": input,
+        "output": output,
+        "expected": expected
+    }
+    const assistantRequest = JSON.stringify(jsonPerson);
+    console.log(assistantRequest)
 
     $.ajax({
         type: "POST",
@@ -23,8 +30,8 @@ function create(e) {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'
         },
-        url: "/person-controller/create",
-        data: personData,
+        url: "/gpt/assist",
+        data: assistantRequest,
         dataType: "JSON ",
         success: function (response) {
             alert(JSON.stringify(response));
@@ -49,7 +56,7 @@ function read(e) {
             'Access-Control-Allow-Origin': '*'
         },
         url: "/person-controller/read/".concat(id),
-         dataType: "JSON",
+        dataType: "JSON",
         success: function (response) {
             alert(JSON.stringify(response));
         },
@@ -72,7 +79,7 @@ function readAll(e) {
             'Access-Control-Allow-Origin': '*'
         },
         url: "/person-controller/read-all",
-         dataType: "JSON",
+        dataType: "JSON",
         success: function (response) {
             alert(JSON.stringify(response));
         },
