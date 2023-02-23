@@ -13,54 +13,55 @@ public class AssistantRequestDto {
 
     public String getPrompt() {
         return new StringBuilder()
-                .append("I am working such that...\n")
+                .append("I am working such that...<br/>")
                 .append(getProjectNameClause())
                 .append(getInputClause())
                 .append(getOutputClause())
                 .append(getExpectedClause())
+                .append("What do you think the issue is?")
                 .toString();
     }
 
     public String getExpectedClause() {
-        return new StringJoiner("\n")
+        return new StringJoiner("<br/>")
                 .add("My expectation could be described as:")
                 .add("```")
                 .add(assistantRequest.getExpected())
                 .add("```")
-                .add("\n")
+                .add("")
                 .toString();
     }
 
 
     public String getInputClause() {
-        return new StringJoiner("\n")
+        return new StringJoiner("<br/>")
                 .add("My input could be described as:")
                 .add("```")
                 .add(assistantRequest.getInput())
                 .add("```")
-                .add("\n")
+                .add("")
                 .toString();
     }
 
 
     public String getOutputClause() {
-        return new StringJoiner("\n")
+        return new StringJoiner("<br/>")
                 .add("My expectation could be described as:")
                 .add("```")
                 .add(assistantRequest.getOutput())
                 .add("```")
-                .add("\n")
+                .add("")
                 .toString();
     }
 
 
     public String getProjectNameClause() {
-        return new StringJoiner("\n")
+        return new StringJoiner("<br/>")
                 .add("My expectation could be described as:")
                 .add("```")
                 .add(assistantRequest.getProjectName())
                 .add("```")
-                .add("\n")
+                .add("")
                 .toString();
     }
 }

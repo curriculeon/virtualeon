@@ -1,4 +1,4 @@
-package com.github.curriculeon.model;
+package com.github.curriculeon.model.gpt.request;
 
 public class GptSimpleRequest {
     private String prompt;

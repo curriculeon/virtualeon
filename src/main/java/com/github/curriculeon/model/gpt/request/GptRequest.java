@@ -1,16 +1,16 @@
-package com.github.curriculeon.model;
+package com.github.curriculeon.model.gpt.request;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class GptRequest {
-    private String model = "text-davinci-003";
+    private String model;
     private String prompt;
-    private Double temperature = 0.5;
-    private Integer max_tokens = 2048;
-    private Integer top_p = 1;
-    private Integer frequency_penalty = 0;
-    private Integer presence_penalty = 0;
+    private Double temperature;
+    private Integer max_tokens;
+    private Integer top_p;
+    private Integer frequency_penalty;
+    private Integer presence_penalty;
 
     public GptRequest(String prompt) {
         this("text-davinci-003", prompt, 0.5, 2048, 1, 0, 0);
