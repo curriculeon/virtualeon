@@ -57,7 +57,7 @@ public class AssistantRequestDto {
 
     public String getProjectNameClause() {
         return new StringJoiner("<br/>")
-                .add("My expectation could be described as:")
+                .add("My project could be described as:")
                 .add("```")
                 .add(assistantRequest.getProjectName())
                 .add("```")

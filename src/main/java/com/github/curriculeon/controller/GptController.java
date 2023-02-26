@@ -3,10 +3,7 @@ package com.github.curriculeon.controller;
 import com.github.curriculeon.dto.AssistantRequestDto;
 import com.github.curriculeon.model.AssistantRequest;
 import com.github.curriculeon.model.gpt.request.GptSimpleRequest;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -46,8 +43,14 @@ public class GptController {
 
     @PostMapping("/assist")
     public ResponseEntity<String> assist(@RequestBody AssistantRequest assistantRequest) {
+        return query(new GptSimpleRequest(getQuestion(assistantRequest).getBody(), "xxx"));
+    }
+
+
+    @PostMapping("/question")
+    public ResponseEntity<String> getQuestion(@RequestBody AssistantRequest assistantRequest) {
         final String prompt = new AssistantRequestDto(assistantRequest).getPrompt();
         System.out.println(prompt);
-        return query(new GptSimpleRequest(prompt, "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"));
+        return new ResponseEntity<>(prompt, HttpStatus.OK);
     }
 }
