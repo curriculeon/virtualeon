@@ -1,11 +1,3 @@
-class Person {
-    constructor(id_, fname_, lname_) {
-        this.id = id_;
-        this.firstName = fname_;
-        this.lastName = lname_;
-    }
-}
-
 function getPrompt(e) {
     e.preventDefault();
     const projectName = document.getElementById("projectName").value;
@@ -20,7 +12,6 @@ function getPrompt(e) {
         "expected": expected
     }
     const assistantRequest = JSON.stringify(request);
-    console.log("a".concat(assistantRequest))
 
     $.ajax({
         type: "POST",
@@ -40,11 +31,11 @@ function getPrompt(e) {
             document.getElementById("prompt").innerHTML = err.responseText;
         }
     });
-
 }
 
 function getResponse(e) {
     e.preventDefault();
+    getPrompt(e);
     const projectName = document.getElementById("projectName").value;
     const input = document.getElementById("input").value;
     const output = document.getElementById("output").value;
@@ -71,7 +62,6 @@ function getResponse(e) {
         data: assistantRequest,
         dataType: "JSON ",
         success: function (response) {
-            alert(JSON.stringify(response));
             console.log(response);
             document.getElementById("response").innerHTML = response.choices[0].text;
         },
@@ -79,5 +69,4 @@ function getResponse(e) {
             alert('Error while request..');
         }
     });
-
 }

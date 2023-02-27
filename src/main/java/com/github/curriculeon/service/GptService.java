@@ -1,15 +1,14 @@
 package com.github.curriculeon.service;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import com.github.curriculeon.dto.AssistantRequestDto;
+import com.github.curriculeon.model.AssistantRequest;
+import com.github.curriculeon.model.gpt.request.GptSimpleRequest;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -18,15 +17,6 @@ public class GptService {
 
     public GptService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-    }
-
-    public List<ResponseEntity<String>> queries(String token, String... prompts) {
-        List<ResponseEntity<String>> result = new ArrayList<>();
-        for (int i = 0; i < prompts.length; i++) {
-            String prompt = prompts[i];
-            result.add(query(prompt, token));
-        }
-        return result;
     }
 
     public ResponseEntity<String> query(String prompt, String token) {
@@ -46,5 +36,21 @@ public class GptService {
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(data, headers);
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
         return response;
+    }
+
+
+    public ResponseEntity<String> assist(AssistantRequest assistantRequest) {
+        return query(getQuestion(assistantRequest).getBody(), "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");
+    }
+
+
+    public ResponseEntity<String> getQuestion(AssistantRequest assistantRequest) {
+        final String prompt = new AssistantRequestDto(assistantRequest).getPrompt();
+        System.out.println(prompt);
+        return new ResponseEntity<>(prompt, HttpStatus.OK);
+    }
+
+    public ResponseEntity<String> awaken() {
+        return new ResponseEntity<>("Service awakened.", HttpStatus.OK);
     }
 }

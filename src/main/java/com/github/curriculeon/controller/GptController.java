@@ -43,7 +43,7 @@ public class GptController {
 
     @PostMapping("/assist")
     public ResponseEntity<String> assist(@RequestBody AssistantRequest assistantRequest) {
-        return query(new GptSimpleRequest(getQuestion(assistantRequest).getBody(), "xxx"));
+        return query(new GptSimpleRequest(getQuestion(assistantRequest).getBody(), "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"));
     }
 
 
@@ -52,5 +52,10 @@ public class GptController {
         final String prompt = new AssistantRequestDto(assistantRequest).getPrompt();
         System.out.println(prompt);
         return new ResponseEntity<>(prompt, HttpStatus.OK);
+    }
+
+    @PostMapping("/awaken")
+    public ResponseEntity<String> awaken() {
+        return new ResponseEntity<>("Service awakened.", HttpStatus.OK);
     }
 }
