@@ -46,7 +46,7 @@ public class AssistantRequestDto {
 
     public String getOutputClause() {
         return new StringJoiner("<br/>")
-                .add("My expectation could be described as:")
+                .add("My output could be described as:")
                 .add("```")
                 .add(assistantRequest.getOutput())
                 .add("```")
