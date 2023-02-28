@@ -2,10 +2,10 @@ package com.github.curriculeon.service;
 
 import com.github.curriculeon.dto.AssistantRequestDto;
 import com.github.curriculeon.model.AssistantRequest;
-import com.github.curriculeon.model.gpt.request.GptSimpleRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -15,6 +15,10 @@ import java.util.Map;
 public class GptService {
     private RestTemplate restTemplate;
 
+    @Value("${openaiToken}")
+    private String openaiToken;
+
+    @Autowired
     public GptService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
@@ -23,7 +27,7 @@ public class GptService {
         String url = "https://api.openai.com/v1/completions";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + token);
+        headers.set("Authorization", "Bearer " + openaiToken);
 
         Map<String, Object> data = new HashMap<>();
         data.put("model", "text-davinci-003");
@@ -40,7 +44,7 @@ public class GptService {
 
 
     public ResponseEntity<String> assist(AssistantRequest assistantRequest) {
-        return query(getQuestion(assistantRequest).getBody(), "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");
+        return query(getQuestion(assistantRequest).getBody(), openaiToken);
     }
 
 
